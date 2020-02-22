@@ -1,0 +1,40 @@
+Login
+SELECT * FROM Users WHERE username LIKE 'user' AND password = 'pass';
+
+Consulta productos
+SELECT p.*, ps.price, un.description, cu.description, cc.tax_ex, c.name 
+FROM Products AS p 
+JOIN Prd_str AS ps ON p.product_id = ps.product_id
+JOIN unts AS un ON ps.unt_id = un.unt_id
+JOIN Stores AS s ON ps.store_id = s.store_id
+JOIN Countries AS c ON s.country_id = c.country_id
+JOIN Country_ccy AS cc ON cc.country_id = c.country_id
+JOIN Currencies AS cu ON cc.currency_id = cu.currency_id;
+
+SELECT p.*, ps.price, ht.tax, (ps.price*ht.tax/100) + ps.price AS Total, un.description, cu.description, c.name 
+FROM Products AS p 
+JOIN Prd_str AS ps ON p.product_id = ps.product_id
+JOIN unts AS un ON ps.unt_id = un.unt_id
+JOIN Stores AS s ON ps.store_id = s.store_id
+JOIN Countries AS c ON s.country_id = c.country_id
+JOIN Hist_tax AS ht ON ht.country_id = c.country_id
+JOIN Country_ccy AS cc ON cc.country_id = c.country_id
+JOIN Currencies AS cu ON cc.currency_id = cu.currency_id;
+
+Insertando productos
+INSERT INTO products(name, description, quantity, img_url) VALUES('Mani Dulce', 'Mani cubierto de caramelo', 30, 'mani.png');
+INSERT INTO prd_str(price, date, product_id, store_id, unt_id) VALUES('110','2020/02/22',2,1,1);
+
+Consulta facturas
+SELECT u.f_name AS Client, i.invoice_id, i.date, p.name AS product, id.quantity, pm.description AS Payment, pic.amount
+FROM invoices AS i
+JOIN inv_details AS id ON i.invoice_id = id.invoice_id
+JOIN products AS p ON id.product_id = p.product_id
+JOIN users AS u ON u.user_id = i.user_id
+JOIN pay_inv_cur AS pic ON pic.invoice_id = i.invoice_id
+JOIN payment_methods AS pm ON pic.pmethod_id = pm.pmethod_id
+
+insertar facturas
+INSERT INTO invoices(date, user_id, paid) VALUES('2020/02/22', 1, 0);
+INSERT INTO inv_details(quantity, invoice_id, product_id) VALUES(12, 1, 2);
+INSERT INTO pay_inv_cur(amount, pmethod_id, currency_id, invoice_id) VALUES(120, 1, 1, 2);
