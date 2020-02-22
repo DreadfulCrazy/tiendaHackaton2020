@@ -1,0 +1,47 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+tienda/dist
+tienda/tmp
+tienda/out-tsc
+# Only exists if Bazel was run
+tienda/bazel-out
+
+# dependencies
+tienda/node_modules
+hackathon/node_modules
+
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
+
+# IDEs and editors
+tienda/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+tienda/.sass-cache
+tienda/connect.lock
+tienda/coverage
+tienda/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+tienda/typings
+
+# System Files
+.DS_Store
+Thumbs.db
