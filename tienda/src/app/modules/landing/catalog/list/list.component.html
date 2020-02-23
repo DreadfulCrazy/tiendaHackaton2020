@@ -7,7 +7,8 @@
         <a class="p-2 text-dark" href="#">Pricing</a>
     </nav> -->
     <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="ex: chocorramo">
+        <input class="form-control mr-sm-2" type="search" placeholder="eg: Nucita" [(ngModel)]="term"
+            [ngModelOptions]="{standalone: true}" [ngbTypeahead]="search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
     </form>
     <!-- <a class="btn btn-outline-primary" href="#">Sign up</a> -->
@@ -19,32 +20,37 @@
 </div>
 
 <div class="container">
-    <div class="card-deck mb-3 text-center">
-        <div *ngFor="let product of products; let i = index" class="card mb-4 box-shadow">
+    <div class="card-deck mb-3 text-center align-cards">
+        <div *ngFor="let product of products | searchBy: term | paginate: { itemsPerPage: 3, currentPage: p }; let i = index"
+            class="card mb-4 box-shadow product-card">
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">{{product.name}}</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">${{product.price}} <small class="text-muted">/ iva
-                        included</small></h1>
+                <h1 class="card-title pricing-card-title">${{product.price}} <small class="text-muted">w/ iva</small></h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                    <li><img [src]="product.img_url" class="product-img"></li>
-                    <li>Description: {{product.description}}</li>
-                    <li>Quantity: {{product.quantity}}</li>
-                    <li>
-                        <div class="number-input md-number-input">
-                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                class="minus"></button>
-                            <input class="quantity" min="1" name="quantity" value="1" type="number"
-                                [max]="product.quantity" readonly>
-                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                class="plus"></button>
-                        </div>
-                    </li>
-
+                    <div>
+                        <li><img [src]="product.img_url" class="product-img"></li>
+                        <br>
+                        <li>Provider: {{product.provider}}</li>
+                        <li *ngIf="product.description.length >= 20">Description: {{product.description.slice(0,20)}}...
+                        </li>
+                        <li *ngIf="product.description.length < 20">Description: {{product.description}}</li>
+                        <li>Quantity: {{product.quantity}}</li>
+                        <li>
+                            <div class="number-input md-number-input">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                    class="minus"></button>
+                                <input class="quantity" min="1" name="quantity" value="1" type="number"
+                                    [max]="product.quantity" readonly>
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                    class="plus"></button>
+                            </div>
+                        </li>
+                    </div>
                 </ul>
                 <button type="button" class="btn btn-lg btn-block btn-outline-primary"
-                    (click)="goToCheckout()">Buy</button>
+                    (click)="goToCheckout(product)">Continue to checkout</button>
             </div>
         </div>
         <!-- <div class="card mb-4 box-shadow">
@@ -78,4 +84,7 @@
             </div>
         </div> -->
     </div>
+    <ngb-alert style="width: 300px; right: -70%;" *ngIf="showAlert" type="success" (close)="showAlert = false">Products
+        bought succesfully</ngb-alert>
+    <pagination-controls (pageChange)="p = $event" style="text-align: center;"></pagination-controls>
 </div>

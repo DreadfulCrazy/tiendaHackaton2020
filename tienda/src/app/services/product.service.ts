@@ -14,11 +14,13 @@ export class ProductService {
 
 
   constructor(private http: HttpClient) {
-    this.httpHeaders = new HttpHeaders();
+    this.httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
   }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}`);
+    return this.http.get<Product[]>(`${this.apiUrl}/products`);
   }
 
   saveProduct(): Observable<Product> {

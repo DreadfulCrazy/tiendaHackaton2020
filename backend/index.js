@@ -2,57 +2,81 @@ const express = require('express'),
       morgan = require('morgan'),
       path = require('path'),
       mysql = require('mysql'),
-      routes = require('./routes/routes');
       myConnection = require('express-myconnection');
       
       const app = express();
-
-
-      app.use('/',routes);
-
-
+      const cors = require('cors');
+      app.use(cors());  
+      
+      //import routes
+      const routes = require('./routes/routes');
+      
+      
+      
       // settings 
       app.set('port', process.env.PORT || 3000);
-      app.set('views', path.join(__dirname, 'views'));
-      app.set('view engine', 'ejs');
+      
 
       // app.get('/', function (req, res) {
       //   res.send('Hello World')
       // })
-     
+      
       // middlewares
       app.use(morgan('dev'));
+          
+
  
     //  ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password' | remember doing in the db
-    app.use(myConnection(mysql, {
-      host: 'localhost',
-      user: 'root',
-      password: 'password',
-      port: 3306,
-      database: 'mydb'
-    }, 'single'));
-//       const connection = mysql.createConnection({
-//         host     : 'localhost',
-//         user     : 'root',
-//         password : 'password',
-//         database : 'mydb'
-//       });
- 
-// connection.connect(function (error) {
-
-//     if (!!error) {
-//       console.log('error');
-//     }else{
-//       console.log('conected');
-//     }
-  
-// });
-
+      app.use(myConnection(mysql, {
+        host: 'localhost',
+        user: 'root',
+        password: 'password',
+        port: 3307,
+        database: 'mydb'
+      }, 'single'));
       
-    
-    
-      // starting routes
+      app.use(express.urlencoded({extended: false}));
+      
 
+      // routes
+      app.use('/',routes);
+
+
+      //   const connection =mysql.createConnection({
+      //     host     : 'localhost',
+      //     user     : 'root',
+      //     port     : 3307,
+      //     password : 'password',
+      //     database : 'mydb'
+      //   });
+      
+      // connection.connect(function (error) {
+
+      //     if (!!error) {
+      //       console.log('error');
+      //     }else{
+      //       console.log('conected');
+      //     }
+        
+      // });
+      var whitelist = ['http://localhost:3000'];
+
+
+      var corsOptions = {
+        origin: function (origin, callback) {
+          if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+          } else {
+            callback(new Error('Not allowed by CORS'))
+          }
+        }
+      }
+      
+      app.get('/', cors(corsOptions), (req, res) =>{
+        app.get('/', (req, res) =>{
+            res.json({mensaje: 'ok'});
+        });});
+      
       // static files
       app.use(express.static(path.join(__dirname, 'public')));
       
