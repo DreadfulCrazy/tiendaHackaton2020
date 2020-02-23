@@ -5,6 +5,7 @@ export class Product {
     quantity: number;
     price: number = 50.25;
     img_url: string;
+    provider: string;
 }
 
 // export class Product {

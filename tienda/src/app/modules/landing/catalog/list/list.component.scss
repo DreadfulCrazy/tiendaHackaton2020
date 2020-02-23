@@ -3,6 +3,13 @@
   height: 200px;
 }
 
+.product-card {
+  max-width: 350px;
+}
+.align-cards {
+  place-content: center;
+}
+
 .filter-form {
     width: 100px;
     display: inline;
