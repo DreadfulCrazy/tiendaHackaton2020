@@ -1,9 +1,9 @@
 {
-  "name": "tienda",
+  "name": "teamtesler1",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -25,6 +25,7 @@
     "@ngrx/effects": "^8.6.0",
     "@ngrx/store": "^1.2.1",
     "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
     "lodash": "^4.17.15",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
