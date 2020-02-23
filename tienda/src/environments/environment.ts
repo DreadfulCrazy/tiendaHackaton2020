@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   // apiUrl: 'http://dreadful-pc:3000'
-  apiUrl: 'http://10.106.238.33:3000/api'
+  // apiUrl: 'http://10.106.238.33:3000/api'
+  apiUrl: 'http://25.17.185.36:3000/api'
 };
 
 /*

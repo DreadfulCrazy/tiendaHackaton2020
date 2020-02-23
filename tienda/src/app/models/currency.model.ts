@@ -1,4 +1,4 @@
 export class Currency {
-    id: number:
+    id: number;
     description: string;
 }

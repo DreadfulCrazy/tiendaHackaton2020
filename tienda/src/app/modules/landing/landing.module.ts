@@ -6,6 +6,7 @@ import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
 import { LandingComponent } from './landing.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { ListComponent } from './catalog/list/list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,8 @@ import { ListComponent } from './catalog/list/list.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     LandingRoutingModule
   ]
 })

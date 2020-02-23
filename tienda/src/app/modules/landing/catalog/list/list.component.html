@@ -1,38 +1,53 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
-    <nav class="my-2 my-md-0 mr-md-3">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Search yours</h5>
+    <!-- <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="#">Features</a>
         <a class="p-2 text-dark" href="#">Enterprise</a>
         <a class="p-2 text-dark" href="#">Support</a>
         <a class="p-2 text-dark" href="#">Pricing</a>
-    </nav>
-    <a class="btn btn-outline-primary" href="#">Sign up</a>
+    </nav> -->
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="ex: chocorramo">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    <!-- <a class="btn btn-outline-primary" href="#">Sign up</a> -->
 </div>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">Pricing</h1>
-    <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap
-        example. It's built with default Bootstrap components and utilities with little customization.</p>
+    <!-- <h1 class="display-4"></h1> -->
+    <p class="lead">The best products for your company.</p>
 </div>
 
 <div class="container">
     <div class="card-deck mb-3 text-center">
-        <div class="card mb-4 box-shadow">
+        <div *ngFor="let product of products; let i = index" class="card mb-4 box-shadow">
             <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Free</h4>
+                <h4 class="my-0 font-weight-normal">{{product.name}}</h4>
             </div>
             <div class="card-body">
-                <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
+                <h1 class="card-title pricing-card-title">${{product.price}} <small class="text-muted">/ iva
+                        included</small></h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                    <li>10 users included</li>
-                    <li>2 GB of storage</li>
-                    <li>Email support</li>
-                    <li>Help center access</li>
+                    <li><img [src]="product.img_url" class="product-img"></li>
+                    <li>Description: {{product.description}}</li>
+                    <li>Quantity: {{product.quantity}}</li>
+                    <li>
+                        <div class="number-input md-number-input">
+                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                class="minus"></button>
+                            <input class="quantity" min="1" name="quantity" value="1" type="number"
+                                [max]="product.quantity" readonly>
+                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                class="plus"></button>
+                        </div>
+                    </li>
+
                 </ul>
-                <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+                <button type="button" class="btn btn-lg btn-block btn-outline-primary"
+                    (click)="goToCheckout()">Buy</button>
             </div>
         </div>
-        <div class="card mb-4 box-shadow">
+        <!-- <div class="card mb-4 box-shadow">
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">Pro</h4>
             </div>
@@ -46,8 +61,8 @@
                 </ul>
                 <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
             </div>
-        </div>
-        <div class="card mb-4 box-shadow">
+        </div> -->
+        <!-- <div class="card mb-4 box-shadow">
             <div class="card-header">
                 <h4 class="my-0 font-weight-normal">Enterprise</h4>
             </div>
@@ -61,6 +76,6 @@
                 </ul>
                 <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
