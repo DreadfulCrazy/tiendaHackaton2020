@@ -16,6 +16,7 @@ import { FooterComponent } from './shared/footer/footer.component';
     AppRoutingModule,
     HttpClientModule
   ],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent]
 })
