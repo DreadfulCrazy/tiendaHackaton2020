@@ -1,8 +1,11 @@
-app.use(express.static('./dist/tienda/package.json'));
+const express = require('express');
 
-app.get('/*', function(req, res) {
-  	res.sendFile('index.html', {root: 'dist/tienda/package.json/'}
-	);
-});
+const app = express();
+
+app.use(express.static('./dist/teamtesler1'));
+
+app.get('/*', (req, res) =>
+    res.sendFile('index.html', {root: 'dist/teamtesler1/'}),
+);
 
 app.listen(process.env.PORT || 8080);
